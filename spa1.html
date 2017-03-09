@@ -1,112 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PSA</title>
+<title>Document</title>
 <script src="js/jq/jquery.2.0.0.js"></script>
-<style>
-	body {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		background-color: #777;
-	}
-	#spa {
-		position: absolute;
-		top: 8px;
-		left: 8px;
-		bottom: 8px;
-		right: 8px;
-		border-radius: 8px 8px 0 8px;
-		background-color: #fff;
-	}
-	.spa-slider {
-		position: absolute;
-		bottom: 0;
-		right: 2px;
-		width: 300px;
-		height: 16px;
-		cursor: pointer;
-		border-radius: 8px 0 0 0;
-		background-color: #f00;
-	}
-</style>
+<script src="js/jq/jquery.uriAnchor.js"></script>
 <script>
-	// 	spa模块
-	// 	提供聊天滑块功能
-	var spa = (function ( $ ){
-		//	模块作用域变量
-		var
-			//	设置常量
-			configMap = {
-				extended_height : 434,
-				extended_title : '点击收起',
-				retracted_height : 16,
-				retracted_title : '点击展开',
-				template_html : '<div class="spa-slider"></div>'
-			},
-			//	声明其他模块作用域变量
-			$chatSlider,
-			toggleSlider, onClickSlider, initModule;
-		//	DOM方法 toggleSlider
-		//	交替滑块高度
-		toggleSlider = function (){
-			var
-				slider_height = $chatSlider.height();
-				//	如果是收起状态，展开slider
-				if( slider_height === configMap.retracted_height ){
-					$chatSlider
-						.animate({ height : configMap.extended_height })
-						.attr( 'title' , configMap.extended_title );
-					return true;
-				//	如果是展开状态，收起slider
-				} else if ( slider_height === configMap.extended_height ){
-					$chatSlider
-						.animate({ height : configMap.retracted_height })
-						.attr( 'title', configMap.retracted_title );
-					return true;
-				}
-			//	slider在变化中时，不可操作
-			return false;
-		};
+	
+	$(function ( $ ){
 
-		//	事件处理 onClickSlider
-		//	接收点击事件，调用toggleSlider方法
-		onClickSlider = function ( event ){
-			toggleSlider();
-			return false;
-		};
-
-		//	公共方法 initModule
-		//	设置最初的状态，提供特征
-		initModule = function ( $container ){
-			//	渲染HTML
-			$container.html( configMap.template_html );
-
-			$chatSlider = $container.find('.spa-slider');
-			//	初始化slider的高度和标题
-			//	向事件处理方法绑定用户点击事件
-			$chatSlider
-				.attr( 'title', configMap.retracted_title )
-				.click( onClickSlider );
-
-			return true;
-		};
-
-		return {
-			initModule : initModule
+		var anchorMap = {
+			profile : 'on',
+			_profile : {
+				uid : 'suzuie',
+				status : 'green'
+			}
 		}
-	})( jQuery );
 
-	//	DOM加载完成后，运行SPA应用
-	jQuery(document).ready(function (){
-		spa.initModule( jQuery('#spa') );
+		$.uriAnchor.setAnchor( anchorMap );
+
 	});
+
 </script>
 </head>
 <body>
-	<div id="spa">
-		<div class="spa-slider"></div>
-	</div>
+	
 </body>
 </html>

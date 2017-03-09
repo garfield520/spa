@@ -1,0 +1,76 @@
+@b : spa-shell;
+.@{b}-head,
+.@{b}-head-logo,
+.@{b}-head-acct,
+.@{b}-head-search,
+.@{b}-main,
+.@{b}-main-nav,
+.@{b}-main-content,
+.@{b}-foot,
+.@{b}-chat,
+.@{b}-modal {
+	position: absolute;
+}
+.@{b}-head {
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	&-logo {
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		height: 32px;
+		width: 128px;
+		background:orange;
+	}
+	&-acct {
+		top: 4px;
+		right: 0;
+		width: 64px;
+		height: 32px;
+		background:green;
+	}
+	&-search {
+		top: 4px;
+		right: 64px;
+		width: 248px;
+		height: 32px;
+		background:blue;
+	}
+}
+.@{b}-main {
+	top: 40px;
+	left: 0;
+	bottom: 40px;
+	right: 0;
+	&-content, &-nav {
+		top: 0;
+		bottom: 0;
+	}
+	&-nav {
+		width: 250px;
+		background:#eee;
+	}
+}
+.spa-x-closed .@{b}-main-nav {
+	width: 0;
+}
+.@{b}-main-content {
+	left: 250px;
+	right: 0;
+	background:#ddd;
+}
+.spa-x-closed .@{b}-main-content{
+	left: 0;
+}
+.@{b}-foot {
+	bottom: 0;left: 0;right: 0;height: 40px;
+}
+.@{b}-chat {
+	bottom: 0;right: 0;width: 300px;height: 15px;background:red;z-index: 1;cursor: pointer;border-radius: 5px 0 0 0;
+	&:hover { background:#a00; }
+}
+.@{b}-modal {
+	margin-top: -200px;margin-left: -200px;top: 50%;left: 50%;width: 400px;height: 400px;background:#fff;border-radius: 3px;z-index: 2;
+}
