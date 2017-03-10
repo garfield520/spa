@@ -253,6 +253,10 @@ spa.shell = (function (){
 			schema_map : configMap.anchor_schema_map
 		})
 
+		//	配置并初始化功能模块
+		spa.chat.configModule({});
+		spa.chat.initModule( jqueryMap.$chat );
+
 		//	初始化滑块绑定事件处理程序
 		stateMap.is_chat_retracted = true;
 		jqueryMap.$chat

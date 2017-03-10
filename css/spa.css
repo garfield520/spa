@@ -65,3 +65,6 @@ strong {
   visibility: hidden !important;
   clear: both !important;
 }
+.test {
+  background: #cccccc;
+}
