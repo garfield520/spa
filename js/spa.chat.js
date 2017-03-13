@@ -38,25 +38,69 @@ spa.chat = (function (){
             slider_close_time : 250,
             slider_opened_em : 16,
             slider_closed_em : 2,
+            slider_opened_title : '点击关闭',
+            slider_closed_title : '点击展开',
+
+            chat_model : null,
+            people_model : null,
+            set_chat_anchor : null
         },
-        stateMap = { $container : null},
+        stateMap = {
+            $append_target : null,
+            position_type : 'closed',
+            px_per_em : 0,
+            slider_hidden_px : 0,
+            slider_closed_px : 0,
+            slider_opened_px : 0
+        },
         jqueryMap = {},
 
-        setJqueryMap, configModule, initModule;
+        setJqueryMap,
+        getEmSize, setPxSizes, setSliderPosition, onClickToggle
+        configModule, initModule;
     //---------------------- END 模块作用域变量 ----------------------
 
     //---------------------- BEGIN 工具方法 ----------------------
+    getEmSize = function ( elem ){
+        return Number(getComputedStyle( elem, '').fontSize.match(/\d*.?\d*/)[0]);
+    }
     //---------------------- END 工具方法 ----------------------
 
     //---------------------- BEGIN DOM方法 ----------------------
     //  BEGIN DOM方法 setJqueryMap
     setJqueryMap = function (){
-        var $container = stateMap.$container;
+        var
+            $appen_target = stateMap.$append_target,
+            $slider = $appen_target.find('.spa-chat');
         jqueryMap = {
-            $container : $container
+            $slider : $slider,
+            $head : $slider.find( '.spa-chat-head' ),
+            $toggle : $slider.find( '.spa-chat-head-toggle' ),
+            $title : $slider.find( '.spa-chat-head-title' ),
+            $sizer : $slider.find( '.spa-chat-sizer' ),
+            $msgs : $slider.find( '.spa-chat-msgs' ),
+            $box : $slider.find( '.spa-chat-box' ),
+            $input : $slider.find( '.spa-chat-input input[type=text]' )
         }
     }
     //  END DOM方法 setJqueryMap
+
+    //  BEGIN DOM方法 setPxSize
+    //
+    setPxSizes = function (){
+        var
+            px_per_em, opened_height_em;
+        px_per_em = getEmSize( jqueryMap.$slider.get(0) );
+        opened_height_em = configMap.slider_opened_em;
+
+        stateMap.px_per_em = px_per_em;
+        stateMap.slider_closed_px = configMap.slider_closed_em * px_per_em;
+        stateMap.slider_opened_px = opened_height_em * px_per_em;
+        jqueryMap.$sizer.css({
+            height : ( opened_height_em - 2 ) * px_per_em
+        });
+    }
+    //  END setPxSize
     //---------------------- END DOM方法 ----------------------
 
     //---------------------- BEGIN 事件处理 ----------------------
