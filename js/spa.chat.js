@@ -4,43 +4,72 @@
  */
 /* global $, spa */
 spa.chat = (function (){
-    //---------------------- BEGIN Ä£¿é×÷ÓÃÓò±äÁ¿ ----------------------
+    //---------------------- BEGIN æ¨¡å—ä½œç”¨åŸŸå˜é‡ ----------------------
     var
         configMap = {
-            main_html : '<h1>hello chat!</h1>',
-            settable_map : {}
+            main_html :
+            '<div class="spa-chat">'+
+            '		<div class="spa-chat-head">'+
+            '			<div class="spa-chat-head-toggle"></div>'+
+            '			<div class="spa-chat-head-title">èŠå¤©</div>'+
+            '		</div>'+
+            '		<div class="spa-chat-closer">X</div>'+
+            '		<div class="spa-chat-sizer">'+
+            '			<div class="spa-chat-msgs"></div>'+
+            '			<div class="spa-chat-box">'+
+            '				<input type="text"/>'+
+            '				<div>send</div>'+
+            '			</div>'+
+            '		</div>'+
+            '	</div>',
+            settable_map : {
+                slider_open_time : true,
+                slider_close_time : true,
+                slider_opened_em : true,
+                slider_closed_em : true,
+                slider_opened_title : true,
+                slider_closed_title : true,
+
+                chat_model : true,
+                people_model : true,
+                set_chat_anchor : true
+            },
+            slider_open_time :ã€€250,
+            slider_close_time : 250,
+            slider_opened_em : 16,
+            slider_closed_em : 2,
         },
         stateMap = { $container : null},
         jqueryMap = {},
 
         setJqueryMap, configModule, initModule;
-    //---------------------- END Ä£¿é×÷ÓÃÓò±äÁ¿ ----------------------
+    //---------------------- END æ¨¡å—ä½œç”¨åŸŸå˜é‡ ----------------------
 
-    //---------------------- BEGIN ¹¤¾ß·½·¨ ----------------------
-    //---------------------- END ¹¤¾ß·½·¨ ----------------------
+    //---------------------- BEGIN å·¥å…·æ–¹æ³• ----------------------
+    //---------------------- END å·¥å…·æ–¹æ³• ----------------------
 
-    //---------------------- BEGIN DOM·½·¨ ----------------------
-    //  BEGIN DOM·½·¨ setJqueryMap
+    //---------------------- BEGIN DOMæ–¹æ³• ----------------------
+    //  BEGIN DOMæ–¹æ³• setJqueryMap
     setJqueryMap = function (){
         var $container = stateMap.$container;
         jqueryMap = {
             $container : $container
         }
     }
-    //  END DOM·½·¨ setJqueryMap
-    //---------------------- END DOM·½·¨ ----------------------
+    //  END DOMæ–¹æ³• setJqueryMap
+    //---------------------- END DOMæ–¹æ³• ----------------------
 
-    //---------------------- BEGIN ÊÂ¼ş´¦Àí ----------------------
-    //---------------------- END ÊÂ¼ş´¦Àí ----------------------
+    //---------------------- BEGIN äº‹ä»¶å¤„ç† ----------------------
+    //---------------------- END äº‹ä»¶å¤„ç† ----------------------
 
-    //---------------------- BEGIN ¹«¹²·½·¨ ----------------------
-    //  BEGIN ¹«¹²·½·¨ configModule
-    //Ä¿µÄ£º´´½¨configModule·½·¨£¬Ã¿µ±¹¦ÄÜÄ£¿é½ÓÊÕÉèÖÃ£¨settings£©Ê±£¬×ÜÊÇÊ¹ÓÃÏàÍ¬µÄ·½·¨ÃûºÍÍ¬Ò»¸öspa.util.setConfigMap¹¤¾ß·½·¨
-    //²ÎÊı£º¿ÉÉèÖÃ¼üÖµ¶ÔÓ³Éä
+    //---------------------- BEGIN å…¬å…±æ–¹æ³• ----------------------
+    //  BEGIN å…¬å…±æ–¹æ³• configModule
+    //ç›®çš„ï¼šåˆ›å»ºconfigModuleæ–¹æ³•ï¼Œæ¯å½“åŠŸèƒ½æ¨¡å—æ¥æ”¶è®¾ç½®ï¼ˆsettingsï¼‰æ—¶ï¼Œæ€»æ˜¯ä½¿ç”¨ç›¸åŒçš„æ–¹æ³•åå’ŒåŒä¸€ä¸ªspa.util.setConfigMapå·¥å…·æ–¹æ³•
+    //å‚æ•°ï¼šå¯è®¾ç½®é”®å€¼å¯¹æ˜ å°„
     //    *   color_name      color to use
-    //ÅäÖÃ£ºconfigMap.settable_map ÉùÃ÷ÖĞÔÊĞíµÄkey
-    //·µ»Ø£ºtrue
-    //Å×³ö£ºnone
+    //é…ç½®ï¼šconfigMap.settable_map å£°æ˜ä¸­å…è®¸çš„key
+    //è¿”å›ï¼štrue
+    //æŠ›å‡ºï¼šnone
     configModule = function ( input_map ){
         spa.util.setConfigMap({
             input_map : input_map,
@@ -49,14 +78,20 @@ spa.chat = (function (){
         });
         return true;
     }
-    //  END ¹«¹²·½·¨ configModule
+    //  END å…¬å…±æ–¹æ³• configModule
 
-    //  BEGIN ¹«¹²·½·¨ configModule
-    //Ä¿µÄ£º³õÊ¼»¯Ä£¿é
-    //²ÎÊı£º
-    //    *   jqueryÔªËØ$container
-    //·µ»Ø£ºtrue
-    //Å×³ö£ºnone
+    //  BEGIN å…¬å…±æ–¹æ³• configModule
+    //     ä¾‹å­ï¼šspa.chat.configModule({ slider_open_em : 18 });
+    //     ç›®çš„ï¼šé…ç½®ä¹‹å‰åˆå§‹åŒ–
+    //     å‚æ•°ï¼š
+    //         *       set_chat_anchor     ä¿®æ”¹é”šç‚¹æ¥è®°å½•æ‰“å¼€æˆ–è€…å…³é—­çŠ¶æ€ï¼Œå¦‚æœè¯·æ±‚çŠ¶æ€ä¸èƒ½è¢«è®¾ç½®ï¼Œå¿…é¡»è¿”å›false
+    //         *       chat_model          æä¾›å³æ—¶æ¶ˆæ¯äº’åŠ¨æ–¹æ³•çš„èŠå¤©æ¨¡å—å¯¹è±¡
+    //         *       poeple_model        peopleæ¨¡å—å¯¹è±¡ï¼Œæä¾›ç®¡ç†æ¨¡å—peopleåˆ—è¡¨çš„æ–¹æ³•
+    //         *       slider_*            mapConfig.settable_mapæŸ¥çœ‹å®Œæ•´åˆ—è¡¨
+    //                 exampleï¼šslider_open_em æ˜¯emä¸ºå•ä½çš„æ‰“å¼€é«˜åº¦
+    //     è¡Œä¸ºï¼šæ ¹æ®æä¾›çš„å‚æ•°æ›´æ–°å†…éƒ¨æ•°æ®ç»“æ„ï¼Œæ— å…¶ä»–è¡Œä¸º
+    //     è¿”å›ï¼štrue
+    //     æŠ›å‡ºï¼šjs errorå¯¹è±¡ã€ä¸å¯æ‰§è¡Œæˆ–ä¸¢å¤±çš„å¯¹è±¡å †æ ˆè·¯å¾„
     initModule = function ( $container ){
         $container.html( configMap.main_html );
         stateMap.$container = $container;
@@ -64,8 +99,8 @@ spa.chat = (function (){
 
         return true;
     }
-    //  END ¹«¹²·½·¨ configModule
-    //---------------------- END ¹«¹²·½·¨ ----------------------
+    //  END å…¬å…±æ–¹æ³• configModule
+    //---------------------- END å…¬å…±æ–¹æ³• ----------------------
 
     return {
         configModule : configModule,
