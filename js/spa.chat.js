@@ -101,9 +101,68 @@ spa.chat = (function (){
         });
     }
     //  END setPxSize
+
+    //  START setSliderPosition
+    setSliderPosition = function ( position_type, callback ){
+        var
+            height_px, animate_time, slider_title, toggle_text;
+        //  如果滑块已经在请求位置，返回true
+        if( stateMap.position_type === position_type ){
+            return true;
+        }
+
+        //  准备动画参数
+        switch ( position_type ){
+            case 'opened':
+                height_px = stateMap.slider_opened_px;
+                animate_time = configMap.slider_open_time;
+                slider_title = configMap.slider_opened_title;
+                toggle_text = '=';
+                break;
+            case 'hidden':
+                height_px = 0;
+                animate_time = configMap.slider_open_time;
+                slider_title = '';
+                toggle_text = '+';
+                break;
+            case 'closed':
+                height_px = stateMap.slider_closed_px;
+                animate_time = configMap.slider_close_time;
+                slider_title = configMap.slider_closed_title;
+                toggle_text = '+';
+                break;
+            //  未知位置
+            default :
+                return false;
+        }
+
+        //  滑块位置动画变化
+        stateMap.position_type = '';
+        jqueryMap.$slider.animate(
+            { height : height_px },
+            animate_time,
+            function (){
+                jqueryMap.$toggle.prop( 'title', slider_title );
+                jqueryMap.$toggle.text( toggle_text );
+                stateMap.position_type = position_type;
+                if( callback ){ callback( jqueryMap.$slider ) }
+            }
+        );
+        return false;
+    }
+    //  END setSliderPosition
     //---------------------- END DOM方法 ----------------------
 
     //---------------------- BEGIN 事件处理 ----------------------
+    onClickToggle = function ( event ){
+        var set_chat_anchor = configMap.set_chat_anchor;
+        if( stateMap.position_type === 'opened' ){
+            set_chat_anchor( 'closed' );
+        } else if ( stateMap.position_type === 'closed' ){
+            set_chat_anchor( 'opened' );
+        }
+        return false;
+    }
     //---------------------- END 事件处理 ----------------------
 
     //---------------------- BEGIN 公共方法 ----------------------
