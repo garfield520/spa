@@ -183,6 +183,8 @@ spa.chat = (function (){
     }
     //  END 公共方法 configModule
 
+
+
     //  BEGIN 公共方法 configModule
     //     例子：spa.chat.configModule({ slider_open_em : 18 });
     //     目的：配置之前初始化
