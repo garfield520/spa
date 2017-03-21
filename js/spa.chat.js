@@ -61,6 +61,7 @@ spa.chat = (function (){
     //---------------------- END 模块作用域变量 ----------------------
 
     //---------------------- BEGIN 工具方法 ----------------------
+    //
     getEmSize = function ( elem ){
         return Number(getComputedStyle( elem, '').fontSize.match(/\d*.?\d*/)[0]);
     }
