@@ -33,7 +33,6 @@ spa.shell = (function (){
 			chat_extend_title : '点击收起',
 			chat_retract_title : '点击展开'
 		},
-
 		//	将在整个模块中共享的动态信息放在stateMap中
 		stateMap = {
 			$container : null,
